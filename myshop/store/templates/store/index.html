@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home</title>
+<style>
+  body {
+    background-color: #ffaec9; /* цвет фона */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center; /* выравнивание по центру */
+    padding: 10px;
+  }
+  h1 {
+    margin-bottom: 10px;
+  }
+  /* место для картинки */
+  .image-container {
+    margin: 20px 0;
+  }
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* скругление углов картинки */
+  }
+</style>
+</head>
+<body>
+<p style="font-size: 40px;">Добро пожаловать</p>
+
+<!-- Текст -->
+<p style="font-size: 20px;">Это магазин масок и костюмов для праздников</p>
+
+<!-- Место для картинки -->
+<div class="image-container">
+<img src="{% static 'images/mask.jpg' %}"> <br>
+<a href='/about/'>Об авторе</a>
+<a href='/shop-info/'>О магазине</a>
+</div>
+</body>
+</html>
