@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Заказ оформлен</title>
+
+<style>
+body{
+    background:#ffd6e7;
+    font-family:Arial;
+}
+
+.card{
+    width:700px;
+    margin:80px auto;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(0,0,0,.15);
+}
+
+.btn{
+    display:inline-block;
+    padding:14px 25px;
+    margin:10px;
+    border-radius:10px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+}
+
+.download{
+    background:#28a745;
+}
+
+.catalog{
+    background:#6c63ff;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+<h1>🎉 Заказ успешно оформлен!</h1>
+
+<p>
+Адрес доставки:
+<b>{{ address }}</b>
+</p>
+
+<p>
+Теперь вы можете скачать чек.
+</p>
+
+<a
+    href="{% url 'download_receipt' %}"
+    class="btn download"
+>
+    📄 Скачать чек
+</a>
+
+<a
+    href="{% url 'catalog' %}"
+    class="btn catalog"
+>
+    🛍 Вернуться в каталог
+</a>
+
+</div>
+
+</body>
+</html>
