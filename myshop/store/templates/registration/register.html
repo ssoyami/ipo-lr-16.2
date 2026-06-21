@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Вход | Мир Масок</title>
+<title>Регистрация | Мир Масок</title>
 
 <style>
 
@@ -16,12 +15,6 @@
 }
 
 body{
-    min-height:100vh;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
     font-family:'Segoe UI',sans-serif;
 
     background:linear-gradient(
@@ -30,18 +23,25 @@ body{
         #ffb7d5,
         #ffd6e7
     );
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:30px;
 }
 
-.login-box{
-
+.container{
     width:100%;
     max-width:500px;
 
     background:white;
 
-    padding:40px;
+    border-radius:30px;
 
-    border-radius:25px;
+    padding:40px;
 
     box-shadow:
     0 10px 30px rgba(0,0,0,.15);
@@ -60,16 +60,15 @@ h1{
     text-align:center;
     color:#666;
 
-    margin-bottom:30px;
+    margin-bottom:35px;
 }
 
-form p{
+.form-group{
     margin-bottom:20px;
 }
 
 label{
     display:block;
-
     margin-bottom:8px;
 
     font-weight:600;
@@ -78,7 +77,6 @@ label{
 
 input{
     width:100%;
-
     padding:14px;
 
     border:2px solid #ffd0e0;
@@ -96,10 +94,11 @@ input:focus{
 .btn{
     width:100%;
 
+    border:none;
+    cursor:pointer;
+
     background:#ff2d75;
     color:white;
-
-    border:none;
 
     padding:15px;
 
@@ -108,28 +107,28 @@ input:focus{
     font-size:18px;
     font-weight:600;
 
-    cursor:pointer;
-
     transition:.3s;
 }
 
 .btn:hover{
     transform:translateY(-3px);
+
+    box-shadow:
+    0 8px 20px rgba(255,45,117,.4);
 }
 
-.links{
-    margin-top:25px;
-
+.login-link{
     text-align:center;
+    margin-top:25px;
 }
 
-.links a{
+.login-link a{
     color:#ff2d75;
     text-decoration:none;
     font-weight:600;
 }
 
-.links a:hover{
+.login-link a:hover{
     text-decoration:underline;
 }
 
@@ -137,43 +136,53 @@ input:focus{
     list-style:none;
     color:red;
     margin-top:5px;
+    font-size:14px;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="container">
 
-<h1>🎭 Вход</h1>
+    <h1>🎭 Регистрация</h1>
 
-<p class="subtitle">
-    Войдите в свой аккаунт
-</p>
+    <p class="subtitle">
+        Создайте аккаунт в магазине «Мир Масок»
+    </p>
 
-<form method="post">
+    <form method="post">
 
-    {% csrf_token %}
+        {% csrf_token %}
 
-    {{ form.as_p }}
+        <div class="form-group">
+            <label>Имя пользователя</label>
+            {{ form.username }}
+        </div>
 
-    <button type="submit" class="btn">
-        🔑 Войти
-    </button>
+        <div class="form-group">
+            <label>Пароль</label>
+            {{ form.password1 }}
+        </div>
 
-</form>
+        <div class="form-group">
+            <label>Повторите пароль</label>
+            {{ form.password2 }}
+        </div>
 
-<div class="links">
+        <button type="submit" class="btn">
+            🎉 Зарегистрироваться
+        </button>
 
-    Нет аккаунта?
+    </form>
 
-    <a href="{% url 'register' %}">
-        Зарегистрироваться
-    </a>
-
-</div>
+    <div class="login-link">
+        Уже есть аккаунт?
+        <a href="{% url 'login' %}">
+            Войти
+        </a>
+    </div>
 
 </div>
 

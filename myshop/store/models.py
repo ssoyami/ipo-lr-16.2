@@ -149,3 +149,66 @@ class CartItem(models.Model):
     class Meta:
         verbose_name = "Элемент корзины"
         verbose_name_plural = "Элементы корзины"
+
+
+class Profile(models.Model):
+ user = models.OneToOneField(
+ User,
+ on_delete=models.CASCADE
+ )
+
+ full_name = models.CharField(
+    max_length=255
+ )
+
+ phone = models.CharField(
+    max_length=20,
+    blank=True
+ )
+
+ address = models.TextField(
+    blank=True
+ )
+
+ def __str__(self):
+    return self.user.username
+ 
+class Order(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    address = models.TextField()
+
+    total_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return f"Заказ №{self.id}"
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        related_name='items'
+    )
+
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE
+    )
+
+    quantity = models.IntegerField()
+
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2
+    )

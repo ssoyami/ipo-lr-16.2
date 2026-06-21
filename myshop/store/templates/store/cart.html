@@ -1,54 +1,242 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Корзина</title>
+<meta charset="UTF-8">
+<title>Корзина</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+
+    background:linear-gradient(
+        135deg,
+        #ff9ecf,
+        #ffb7d5,
+        #ffd6e7
+    );
+
+    min-height:100vh;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:40px auto;
+
+    background:rgba(255,255,255,.92);
+
+    border-radius:25px;
+    padding:40px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.15);
+}
+
+h1{
+    text-align:center;
+    color:#ff2d75;
+    margin-bottom:40px;
+    font-size:48px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:white;
+
+    padding:25px;
+    margin-bottom:20px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,.08);
+}
+
+.item-info h3{
+    color:#ff2d75;
+    margin-bottom:10px;
+}
+
+.item-info p{
+    color:#555;
+    margin-bottom:8px;
+    font-size:18px;
+}
+
+.item-price{
+    font-size:24px;
+    font-weight:bold;
+    color:#ff2d75;
+}
+
+.delete-btn{
+    text-decoration:none;
+
+    background:#ff4d6d;
+    color:white;
+
+    padding:12px 22px;
+
+    border-radius:30px;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.delete-btn:hover{
+    background:#e6395f;
+}
+
+.empty-cart{
+    text-align:center;
+    font-size:24px;
+    color:#666;
+    margin:40px 0;
+}
+
+.total-box{
+    margin-top:30px;
+
+    text-align:center;
+
+    background:#fff4f8;
+
+    padding:25px;
+
+    border-radius:20px;
+}
+
+.total-box h2{
+    color:#ff2d75;
+    font-size:34px;
+}
+
+.buttons{
+    margin-top:35px;
+
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.btn{
+    text-decoration:none;
+
+    background:#ff2d75;
+    color:white;
+
+    padding:15px 30px;
+
+    border-radius:50px;
+
+    font-size:18px;
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 8px 20px rgba(255,45,117,.4);
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h1>Корзина</h1>
+<div class="container">
+
+```
+<h1>🛒 Корзина</h1>
 
 {% for item in items %}
 
-<div>
+<div class="cart-item">
 
-    <h3>{{ item.product.name }}</h3>
+    <div class="item-info">
 
-    <p>
-        Цена:
-        {{ item.product.price }} руб.
-    </p>
+        <h3>
+            {{ item.product.name }}
+        </h3>
 
-    <p>
-        Количество:
-        {{ item.quantity }}
-    </p>
+        <p>
+            💰 Цена:
+            {{ item.product.price }} руб.
+        </p>
 
-    <p>
-        Стоимость:
-        {{ item.item_price }} руб.
-    </p>
+        <p>
+            📦 Количество:
+            {{ item.quantity }}
+        </p>
 
-    <a href="{% url 'remove_from_cart' item.id %}">
-        Удалить
+        <p class="item-price">
+            {{ item.item_price }} руб.
+        </p>
+
+    </div>
+
+    <a
+        href="{% url 'remove_from_cart' item.id %}"
+        class="delete-btn"
+    >
+        🗑 Удалить
     </a>
 
 </div>
 
-<hr>
-
 {% empty %}
-    <p>Корзина пуста.</p>
+
+<div class="empty-cart">
+    🛍 Ваша корзина пока пуста
+</div>
+
 {% endfor %}
 
-<h2>Общая стоимость: {{ total_price }} руб.</h2>
+<div class="total-box">
 
-<a href="{% url 'catalog' %}">
-    Вернуться в каталог
-</a>
-<a href="{% url 'checkout' %}">
-    Оформить заказ
-</a>
+    <h2>
+        Итого: {{ total_price }} руб.
+    </h2>
+
+</div>
+
+<div class="buttons">
+
+    <a
+        href="{% url 'catalog' %}"
+        class="btn"
+    >
+        🛍 Продолжить покупки
+    </a>
+
+    <a
+        href="{% url 'checkout' %}"
+        class="btn"
+    >
+        ✅ Оформить заказ
+    </a>
+
+</div>
+```
+
+</div>
 
 </body>
 </html>

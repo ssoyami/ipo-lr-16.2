@@ -6,7 +6,10 @@ from .models import (
     Cart,
     CartItem,
 )
+from .models import Order, OrderItem
 
+admin.site.register(Order)
+admin.site.register(OrderItem)
 admin.site.register(Category)
 admin.site.register(Manufacturer)
 admin.site.register(Product)

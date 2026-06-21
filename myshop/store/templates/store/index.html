@@ -1,5 +1,7 @@
 {% load static %}
+
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -7,6 +9,7 @@
 <title>Мир Масок</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -15,69 +18,100 @@
 
 body{
     font-family:'Segoe UI',sans-serif;
-    min-height:100vh;
-
-    background: linear-gradient(
+    background:linear-gradient(
         135deg,
         #ff9ecf,
         #ffb7d5,
         #ffd6e7
     );
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:30px;
 }
 
 .container{
-    width:100%;
-    max-width:1000px;
+    width:90%;
+    max-width:1200px;
+    margin:30px auto;
 
-    background:rgba(255,255,255,0.9);
-    backdrop-filter:blur(10px);
+    background:rgba(255,255,255,.95);
 
     border-radius:25px;
-
     padding:40px;
 
     box-shadow:
-        0 10px 30px rgba(0,0,0,.15);
+    0 10px 30px rgba(0,0,0,.15);
+   
+    position:relative;
 }
 
-h1{
+
+.hero{
+    text-align:center;
+}
+
+.hero h1{
+    color:#ff2d75;
     font-size:60px;
     margin-bottom:15px;
-    color:#ff2d75;
 }
 
-.subtitle{
-    font-size:22px;
+.hero p{
     color:#555;
-    margin-bottom:30px;
+    font-size:22px;
+    margin-bottom:25px;
 }
 
-.image-box{
-    margin:25px 0;
-}
+.hero-image{
+    width:310px;
+    height:310px;
 
-.image-box img{
-    width:100%;
-    max-width:700px;
+    object-fit:cover;
+    object-position:center 60%;
 
-    border-radius:20px;
+    border-radius:10px;
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,.2);
+    0 8px 25px rgba(0,0,0,.2);
 }
 
 .buttons{
-    margin-top:35px;
+    margin-top:25px;
 
     display:flex;
     justify-content:center;
     flex-wrap:wrap;
     gap:15px;
+}
+
+.profile-link{
+    position:absolute;
+    top:20px;
+    right:20px;
+}
+
+.profile-btn{
+    width:55px;
+    height:55px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+
+    background:#ff2d75;
+    color:white;
+
+    border-radius:50%;
+
+    font-size:26px;
+
+    box-shadow:
+    0 5px 15px rgba(255,45,117,.3);
+
+    transition:.3s;
+}
+
+.profile-btn:hover{
+    transform:scale(1.08);
 }
 
 .btn{
@@ -86,91 +120,319 @@ h1{
     background:#ff2d75;
     color:white;
 
-    padding:14px 30px;
+    padding:12px 24px;
 
+    border:none;
     border-radius:50px;
 
-    font-size:18px;
     font-weight:600;
+    cursor:pointer;
 
     transition:.3s;
 }
 
 .btn:hover{
-    transform:translateY(-4px);
+    transform:translateY(-3px);
+}
+
+.section-title{
+    text-align:center;
+
+    color:#ff2d75;
+
+    margin-top:60px;
+    margin-bottom:30px;
+
+    font-size:42px;
+}
+
+.products-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,220px));
+
+    justify-content:center;
+
+    gap:20px;
+}
+
+.product-card{
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
     box-shadow:
-        0 8px 20px rgba(255,45,117,.4);
+    0 5px 15px rgba(0,0,0,.1);
+
+    transition:.3s;
+}
+
+.product-card:hover{
+    transform:translateY(-5px);
+}
+
+.product-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.product-info{
+    padding:15px;
+    text-align:center;
+}
+
+.product-info h3{
+    color:#ff2d75;
+    margin-bottom:10px;
+}
+
+.product-info p{
+    color:#555;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#ff2d75;
+    font-size:18px;
+    font-weight:bold;
+
+    margin-bottom:15px;
+}
+
+.categories{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.category-btn{
+    text-decoration:none;
+
+    background:white;
+    color:#ff2d75;
+
+    padding:12px 22px;
+
+    border-radius:30px;
+
+    font-weight:bold;
+
+    box-shadow:
+    0 4px 12px rgba(0,0,0,.1);
+
+    transition:.3s;
+}
+
+.category-btn:hover{
+    transform:translateY(-3px);
+}
+
+.register-btn{
+    background:#9c0d47;
 }
 
 .user-box{
-    margin-top:35px;
-    padding:20px;
+    margin-top:50px;
 
     background:#fff4f8;
+
     border-radius:15px;
 
-    font-size:18px;
-}
+    padding:20px;
 
-.logout-btn{
-    margin-top:15px;
-    border:none;
-    cursor:pointer;
+    text-align:center;
 }
 
 footer{
-    margin-top:35px;
-    color:#777;
-    font-size:14px;
+    margin-top:50px;
+
+    text-align:center;
+
+    color:#666;
 }
+
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
+{% if user.is_authenticated %}
+
+<div class="profile-link">
+
+    <a href="/profile/" class="profile-btn">
+        👤
+    </a>
+
+</div>
+
+{% endif %}
+
+<div class="hero">
+
     <h1>🎭 Мир Масок</h1>
 
-    <p class="subtitle">
-        Магазин масок и костюмов для праздников, вечеринок,
-        Хэллоуина, карнавалов и фотосессий
+    <p>
+        Магазин масок и костюмов для праздников,
+        карнавалов, фотосессий и Хэллоуина
     </p>
 
-    <div class="image-box">
-        <img src="{% static 'images/mask.jpg' %}" alt="Маски">
-    </div>
+    <img
+        src="{% static 'images/chichi.png' %}"
+        alt="Мир Масок"
+        class="hero-image"
+    >
 
     <div class="buttons">
-        <a href="/catalog/" class="btn">🛍 Каталог</a>
-        <a href="/cart/" class="btn">🛒 Корзина</a>
-        <a href="/about/" class="btn">👩 Об авторе</a>
-        <a href="/shop-info/" class="btn">🏪 О магазине</a>
+
+        <a href="/catalog/" class="btn">
+            🛍 Перейти в каталог
+        </a>
+
+        <a href="/cart/" class="btn">
+            🛒 Корзина
+        </a>
+
+        <a href="/about/" class="btn">
+            👩 Об авторе
+        </a>
+
+        <a href="/shop-info/" class="btn">
+            🏪 О магазине
+        </a>
+
     </div>
 
-    {% if user.is_authenticated %}
-    <div class="user-box">
+</div>
+
+<h2 class="section-title">
+    ⭐ Популярные товары
+</h2>
+
+<div class="products-grid">
+
+    {% for product in products %}
+
+    <div class="product-card">
+
+        {% if product.photo %}
+        <img
+            src="{{ product.photo.url }}"
+            alt="{{ product.name }}"
+        >
+        {% endif %}
+
+        <div class="product-info">
+
+            <h3>{{ product.name }}</h3>
+
+            <p>
+                {{ product.description|truncatechars:50 }}
+            </p>
+
+            <div class="price">
+                {{ product.price }} руб.
+            </div>
+
+            <a
+                href="{% url 'product_detail' product.id %}"
+                class="btn"
+            >
+                Подробнее
+            </a>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <p>Товары пока не добавлены.</p>
+
+    {% endfor %}
+
+</div>
+
+<h2 class="section-title">
+    📂 Категории товаров
+</h2>
+
+<div class="categories">
+
+    {% for category in categories %}
+
+    <a
+        href="{% url 'catalog' %}?category={{ category.id }}"
+        class="category-btn"
+    >
+        {{ category.name }}
+    </a>
+
+    {% endfor %}
+
+</div>
+
+{% if user.is_authenticated %}
+
+<div class="user-box">
+
+    <p>
         👋 Добро пожаловать,
         <b>{{ user.username }}</b>
+    </p>
 
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn logout-btn">
-                🚪 Выйти
-            </button>
-        </form>
-    </div>
-    {% else %}
-    <div class="buttons">
-        <a href="{% url 'login' %}" class="btn">
-            🔑 Войти
-        </a>
-    </div>
-    {% endif %}
+    <br>
 
-    <footer>
-        © 2026 Мир Масок — костюмы и маски для любого праздника
-    </footer>
+    <form action="{% url 'logout' %}" method="post">
+
+        {% csrf_token %}
+
+        <button
+            type="submit"
+            class="btn"
+        >
+            🚪 Выйти
+        </button>
+
+    </form>
+
+</div>
+
+{% else %}
+
+<div class="buttons">
+
+    <a
+        href="{% url 'login' %}"
+        class="btn"
+    >
+        🔑 Войти
+    </a>
+
+    <a
+        href="{% url 'register' %}"
+        class="btn register-btn"
+    >
+        📝 Регистрация
+    </a>
+
+</div>
+
+{% endif %}
+
+<footer>
+    © 2026 Мир Масок — костюмы и маски для любого праздника
+</footer>
+
 
 </div>
 

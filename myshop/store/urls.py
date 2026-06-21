@@ -8,6 +8,7 @@ from .views import (
     CartViewSet,
     CartItemViewSet
 )
+from .views import register
 
 router = DefaultRouter()
 
@@ -31,7 +32,10 @@ urlpatterns = [
     path('cart/remove/<int:item_id>/', views.remove_from_cart, name='remove_from_cart'),
     path('checkout/', views.checkout, name='checkout'),
     path('download_receipt/', views.download_receipt, name='download_receipt'),
+    path('register/', views.register, name='register'),
+    path('profile/', views.profile, name='profile'),
 ]
 urlpatterns += [
     path('api/', include(router.urls)),
+    path('register/', register, name='register')
 ]

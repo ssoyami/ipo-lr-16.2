@@ -93,7 +93,8 @@ header{
 .card img{
     width:100%;
     height:250px;
-    object-fit:cover;
+    object-fit:contain;
+    background:white;
 }
 
 .card-content{
@@ -214,15 +215,13 @@ header{
                     Подробнее
                 </a>
 
-                <p>{{ product.photo.url }}</p>
-
             </div>
 
         </div>
 
         {% empty %}
 
-        <h2>Товары не найдены 😢</h2>
+        <h2>Товары не найдены</h2>
 
         {% endfor %}
 

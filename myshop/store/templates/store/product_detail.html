@@ -1,45 +1,231 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ product.name }}</title>
+<meta charset="UTF-8">
+<title>{{ product.name }}</title>
+
+<style>
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#ffd6e7;
+    margin:0;
+    padding:30px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,.1);
+}
+
+.breadcrumbs{
+    margin-bottom:25px;
+    font-size:18px;
+}
+
+.breadcrumbs a{
+    text-decoration:none;
+    color:#ff2d75;
+    font-weight:bold;
+}
+
+.product{
+    display:flex;
+    gap:40px;
+    align-items:flex-start;
+}
+
+.left{
+    width:50%;
+}
+
+.right{
+    width:50%;
+}
+
+.left img{
+    width:100%;
+    max-height:600px;
+    object-fit:contain;
+    background:white;
+    border-radius:20px;
+}
+
+.title{
+    font-size:42px;
+    color:#ff2d75;
+    margin-bottom:15px;
+}
+
+.manufacturer{
+    font-size:20px;
+    color:#666;
+    margin-bottom:20px;
+}
+
+.description{
+    font-size:18px;
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+.price{
+    font-size:34px;
+    font-weight:bold;
+    color:#ff2d75;
+    margin-bottom:20px;
+}
+
+.stock{
+    font-size:20px;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-block;
+
+    padding:15px 30px;
+
+    background:#ff2d75;
+    color:white;
+
+    text-decoration:none;
+
+    border:none;
+    border-radius:50px;
+
+    font-size:18px;
+    cursor:pointer;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+.disabled{
+    background:#999;
+    cursor:not-allowed;
+}
+
+.back-btn{
+    background:#6c63ff;
+    margin-top:20px;
+}
+
+@media(max-width:768px){
+
+    .product{
+        flex-direction:column;
+    }
+
+    .left,
+    .right{
+        width:100%;
+    }
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h1>{{ product.name }}</h1>
+<div class="container">
 
-{% if product.photo %}
-    <img src="{{ product.photo.url }}" width="300">
-{% endif %}
+```
+<div class="breadcrumbs">
 
-<p><strong>Описание:</strong></p>
-<p>{{ product.description }}</p>
+    <a href="/">Главная</a>
+    >
+    <a href="/catalog/">Каталог</a>
+    >
+    {{ product.name }}
 
-<p>
-    <strong>Цена:</strong>
-    {{ product.price }} руб.
-</p>
+</div>
 
-<p>
-    <strong>На складе:</strong>
-    {{ product.stock_quantity }}
-</p>
+<div class="product">
 
-<p>
-    <strong>Производитель:</strong>
-    {{ product.manufacturer }}
-</p>
+    <div class="left">
 
-<a href="{% url 'catalog' %}">
-    Назад в каталог
-</a>
+        {% if product.photo %}
+            <img
+                src="{{ product.photo.url }}"
+                alt="{{ product.name }}"
+            >
+        {% endif %}
 
-{% if user.is_authenticated %}
-    |
-    <a href="{% url 'add_to_cart' product.id %}">
-        Добавить в корзину
-    </a>
-{% endif %}
+    </div>
+
+    <div class="right">
+
+        <h1 class="title">
+            {{ product.name }}
+        </h1>
+
+        <div class="manufacturer">
+            Производитель:
+            {{ product.manufacturer.name }}
+        </div>
+
+        <div class="description">
+            {{ product.description }}
+        </div>
+
+        <div class="price">
+            {{ product.price }} руб.
+        </div>
+
+        <div class="stock">
+            На складе:
+            {{ product.stock_quantity }}
+        </div>
+
+        {% if product.stock_quantity > 0 %}
+
+            <a
+                href="{% url 'add_to_cart' product.id %}"
+                class="btn"
+            >
+                🛒 Добавить в корзину
+            </a>
+
+        {% else %}
+
+            <button
+                class="btn disabled"
+                disabled
+            >
+                Нет в наличии
+            </button>
+
+        {% endif %}
+
+        <br>
+
+        <a
+            href="/catalog/"
+            class="btn back-btn"
+        >
+            ← Вернуться в каталог
+        </a>
+
+    </div>
+
+</div>
+```
+
+</div>
 
 </body>
 </html>

@@ -1,33 +1,245 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Оформление заказа</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+
+    background:linear-gradient(
+        135deg,
+        #ff9ecf,
+        #ffb7d5,
+        #ffd6e7
+    );
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:40px 20px;
+}
+
+.container{
+    width:100%;
+    max-width:900px;
+
+    background:white;
+
+    border-radius:30px;
+
+    padding:50px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.15);
+}
+
+h1{
+    text-align:center;
+    color:#ff2d75;
+    font-size:48px;
+    margin-bottom:15px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:40px;
+    font-size:18px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group.full{
+    grid-column:1 / -1;
+}
+
+label{
+    font-size:18px;
+    font-weight:600;
+    color:#444;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+
+    border:2px solid #ffd0e1;
+    border-radius:15px;
+
+    font-size:16px;
+
+    transition:.3s;
+}
+
+input:focus{
+    outline:none;
+    border-color:#ff2d75;
+}
+
+.buttons{
+    margin-top:40px;
+
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    text-decoration:none;
+
+    background:#ff2d75;
+    color:white;
+
+    border:none;
+
+    padding:15px 35px;
+
+    border-radius:50px;
+
+    font-size:18px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 8px 20px rgba(255,45,117,.35);
+}
+
+.back-btn{
+    background:#7a6cff;
+}
+
+footer{
+    margin-top:35px;
+    text-align:center;
+    color:#777;
+}
+
+@media(max-width:768px){
+
+    .container{
+        padding:30px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    h1{
+        font-size:36px;
+    }
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h1>Оформление заказа</h1>
+<div class="container">
+
+
+<h1>📦 Оформление заказа</h1>
+
+<p class="subtitle">
+    Заполните адрес доставки
+</p>
 
 <form method="post">
+
     {% csrf_token %}
 
-    <p>
-        Адрес доставки:
-    </p>
+    <div class="form-grid">
 
-    <input
-        type="text"
-        name="address"
-        required
-    >
+        <div class="form-group">
+            <label>Страна</label>
+            <input type="text" name="country" required>
+        </div>
 
-    <br><br>
+        <div class="form-group">
+            <label>Город</label>
+            <input type="text" name="city" required>
+        </div>
 
-    <button type="submit">
-        Подтвердить заказ
-    </button>
+        <div class="form-group">
+            <label>Улица</label>
+            <input type="text" name="street" required>
+        </div>
+
+        <div class="form-group">
+            <label>Дом</label>
+            <input type="text" name="house" required>
+        </div>
+
+        <div class="form-group">
+            <label>Подъезд</label>
+            <input type="text" name="entrance">
+        </div>
+
+        <div class="form-group">
+            <label>Этаж</label>
+            <input type="text" name="floor">
+        </div>
+
+        <div class="form-group full">
+            <label>Квартира</label>
+            <input type="text" name="apartment">
+        </div>
+
+    </div>
+
+    <div class="buttons">
+
+        <a href="{% url 'cart' %}" class="btn back-btn">
+            ← Назад в корзину
+        </a>
+
+        <button type="submit" class="btn">
+            ✅ Подтвердить заказ
+        </button>
+
+    </div>
 
 </form>
+
+<footer>
+    🎭 Мир Масок
+</footer>
+
+
+</div>
 
 </body>
 </html>

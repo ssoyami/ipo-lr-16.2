@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Личный кабинет</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+
+    background:linear-gradient(
+        135deg,
+        #ff9ecf,
+        #ffb7d5,
+        #ffd6e7
+    );
+
+    min-height:100vh;
+}
+
+.container{
+    width:90%;
+    max-width:1000px;
+
+    margin:40px auto;
+
+    background:white;
+
+    border-radius:25px;
+
+    padding:40px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.15);
+}
+
+h1{
+    text-align:center;
+
+    color:#ff2d75;
+
+    margin-bottom:30px;
+}
+
+.card{
+    background:#fff4f8;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    margin-bottom:25px;
+}
+
+.card h2{
+    color:#ff2d75;
+
+    margin-bottom:15px;
+}
+
+.info{
+    margin:10px 0;
+    font-size:18px;
+}
+
+.orders-table{
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+.orders-table th,
+.orders-table td{
+    border:1px solid #ddd;
+
+    padding:12px;
+
+    text-align:center;
+}
+
+.orders-table th{
+    background:#ff2d75;
+    color:white;
+}
+
+.btn{
+    text-decoration:none;
+
+    background:#ff2d75;
+    color:white;
+
+    padding:10px 20px;
+
+    border-radius:30px;
+
+    display:inline-block;
+
+    margin-right:10px;
+}
+
+.empty{
+    color:#666;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+<h1>👤 Личный кабинет</h1>
+
+<div class="card">
+
+    <h2>Профиль</h2>
+
+    <div class="info">
+        <b>Логин:</b>
+        {{ user.username }}
+    </div>
+
+    <div class="info">
+        <b>Email:</b>
+        {{ user.email|default:"Не указан" }}
+    </div>
+
+</div>
+
+<div class="card">
+
+    <h2>Мои заказы</h2>
+
+    {% if orders %}
+
+<table class="orders-table">
+
+    <tr>
+        <th>№</th>
+        <th>Дата</th>
+        <th>Сумма</th>
+    </tr>
+
+    {% for order in orders %}
+
+    <tr>
+
+        <td>
+            {{ order.id }}
+        </td>
+
+        <td>
+            {{ order.created_at|date:"d.m.Y H:i" }}
+        </td>
+
+        <td>
+            {{ order.total_price }} руб.
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% else %}
+
+<p class="empty">
+    У вас пока нет заказов.
+</p>
+
+{% endif %}
+
+</div>
+
+<div style="margin-top:20px;">
+
+    <a href="{% url 'catalog' %}" class="btn">
+        🛍 В каталог
+    </a>
+
+    <a href="{% url 'main' %}" class="btn">
+        🏠 На главную
+    </a>
+
+</div>
+
+
+</div>
+
+</body>
+</html>
